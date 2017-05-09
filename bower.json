@@ -1,0 +1,23 @@
+{
+  "name": "bitcoinbot",
+  "description": "Bitcoin Bot",
+  "main": "main.js",
+  "authors": [
+    "Ahmet Ertem"
+  ],
+  "license": "CC0-1.0",
+  "keywords": [
+    "bitcoin",
+    "bot",
+    "electron",
+    "hybrid"
+  ],
+  "homepage": "https://github.com/ahmetertem/bitcoinbot",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

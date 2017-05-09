@@ -1,25 +1,28 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "bitcoinbot",
+  "version": "0.0.1",
+  "description": "Bitcoin Bot",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ahmetertem/bitcoinbot",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "bitcoin",
+    "bot",
+    "electron-app",
+    "electron"
   ],
-  "author": "GitHub",
+  "author": "Ahmet Ertem",
   "license": "CC0-1.0",
   "devDependencies": {
+    "console": "^0.5.2",
     "electron": "~1.6.2"
   },
   "dependencies": {
-    "request": "^2.81.0"
+    "locutus": "^2.0.8",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "tablify": "^0.1.5"
   }
 }

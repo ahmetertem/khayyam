@@ -1,3 +1,6 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
+#!/usr/bin/env node
+
+'use strict';
+//process.stdin.setRawMode(true);
+// process.stdin.resume();
+require('./lib/markets/poloniex.js');
