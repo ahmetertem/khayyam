@@ -20,9 +20,12 @@
     "electron": "~1.6.2"
   },
   "dependencies": {
+    "glob": "^7.1.1",
+    "inquirer": "^3.0.6",
     "locutus": "^2.0.8",
     "lodash": "^4.17.4",
     "request": "^2.81.0",
-    "tablify": "^0.1.5"
+    "tablify": "^0.1.5",
+    "vorpal": "^1.12.0"
   }
 }
