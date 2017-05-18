@@ -107,6 +107,10 @@ rl.on('line', (line) =>
 						{
 							case 'add':
 								let pair_ = app.markets.markets[args_[1]].available_pairs[args_[3]];
+								/*app.markets.markets[args_[1]].on('pair_added', function(pair)
+								{
+									console.log(pair);
+								});*/
 								app.markets.markets[args_[1]].add_pair(new Pair(pair_.currency1, pair_.currency2, pair_.currency1_decimal != undefined ? pair_.currency1_decimal : 8, pair_.currency8_decimal != undefined ? pair_.currency8_decimal : 8));
 								break;
 							case 'delete':
