@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 const app = require('./lib/app.js');
+app.prerequisite();
+app.markets.on('add_available_market', function(a) {
+	console.log('Market `' + a + '` added to available markets');
+})
 app.init();
 //
 // C
@@ -17,117 +21,73 @@ const _ = require('lodash');
 const ora = require('ora');
 const cliSpinners = require('cli-spinners');
 const vorpal = require('vorpal')();
+const tablify = require('tablify').tablify;
+const chalk = require('chalk');
+const inquirer = require('inquirer');
+
+
 vorpal.find('exit').remove();
 vorpal.command('exit', 'Exits application.').alias('quit').action(function(args, callback) {
 	process.exit(0);
 });
-vorpal.delimiter('myapp$').show();
-return;
-rl.prompt();
-rl.on('line', (line) => {
-	line = line.trim();
-	var args_ = line.split(' ');
-	var args_c = args_.length;
-	switch (args_[0]) {
-		case 'quit':
-		case 'exit':
-			console.log('Have a great day!');
-			process.exit(0);
-			break;
-		case 'init':
-			if (args_c == 1 || (args_c == 2 && args_[1] == 'list')) {
-				console.log('Available markets:');
-				_.forEach(app.markets.available_markets, function(value, key) {
-					console.log(key + ' : ' + value.name);
-				});
-			} else {
-				if (args_c > 1) {
-					args_[1] = _.parseInt(args_[1]);
-					if (args_[1] > -1 && args_[1] < app.markets.available_markets.length) {
-						if (args_c < 4) {
-							console.error('Usage:');
-							console.log('\tinit <market_index> <api_key> <api_secret>');
-						} else {
-							app.markets.add(app.markets.available_markets[args_[1]].name, args_[2], args_[3]);
-						}
-					} else {
-						console.error('Index `' + args_[1] + '` is not found. Please enter value between 0 and ' + app.markets.available_markets.length);
-					}
-				}
-			}
-			break;
-		case 'markets':
-			_.forEach(app.markets.markets, function(value, key) {
-				console.log(key + ' : ' + value.name);
-			});
-			break;
-		case 'pairs':
-			if (args_c > 1) {
-				args_[1] = _.parseInt(args_[1]);
-				_.forEach(app.markets.markets[args_[1]].available_pairs, function(value, key) {
-					console.log(key + ' : ' + value.currency1.toUpperCase() + '/' + value.currency2.toUpperCase());
-				});
-			} else {
-				console.error('Usage:');
-				console.log('\tpairs <market_index>');
-			}
-			break;
-		case 'pair':
-			show_usage = false;
-			if (args_c > 1) {
-				args_[1] = _.parseInt(args_[1]);
-				if (args_[1] > -1 && args_[1] < app.markets.markets.length) {
-					args_[3] = _.parseInt(args_[3]);
-					switch (args_[2]) {
-						case 'add':
-							let pair_ = app.markets.markets[args_[1]].available_pairs[args_[3]];
-							/*app.markets.markets[args_[1]].on('pair_added', function(pair)
-							{
-								console.log(pair);
-							});*/
-							app.markets.markets[args_[1]].add_pair(new Pair(pair_.currency1, pair_.currency2, pair_.currency1_decimal != undefined ? pair_.currency1_decimal : 8, pair_.currency8_decimal != undefined ? pair_.currency8_decimal : 8));
-							break;
-						case 'delete':
-						case 'remove':
-						case 'rm':
-							break;
-						default:
-							show_usage = true;
-					}
-				} else {
-					console.error('Index `' + args_[1] + '` is not found. Please enter value between 0 and ' + app.markets.available_markets.length);
-				}
-			} else {
-				show_usage = true;
-			}
-			if (show_usage) {
-				console.error('Usage:');
-				console.log('\tpair <market_index> add <pair_index>');
-				console.log('\tpair <market_index> delete <pair_index>');
-				console.log('\tpair <market_index> remove <pair_index>');
-				console.log('\tpair <market_index> rm <pair_index>');
-			}
-			break;
-		case 'trade':
-			show_usage = false;
-			if (args_c > 1) {
-				//console.log(cliSpinners.dots);
-				const spinner = ora({
-					spinner: cliSpinners.dots
-				}).start();
-				app.markets.markets[args_[1]].make_order(app.markets.markets[args_[1]].pairs[args_[2]], args_[3], args_[4], args_[5]);
-				spinner.stop();
-			} else {
-				show_usage = true;
-			}
-			if (show_usage) {
-				console.error('Usage:');
-				console.log('\ttrade <market_index> <pair_index> buy <rate> <amount>');
-				console.log('\ttrade <market_index> <pair_index> sell <rate> <amount>');
-			}
-	}
-	rl.prompt();
-}).on('close', () => {
-	console.log('Have a great day!');
-	process.exit(0);
+vorpal.command('add_market', 'Initialize new market instance').action(function(args, callback) {
+	var market_names = [];
+	_.forEach(app.markets.available_markets, function(value, key) {
+		market_names.push(value.name);
+	});
+	inquirer.prompt([{
+		type: 'list',
+		name: 'market_name',
+		message: 'Which market do you want to initialize?',
+		paginated: true,
+		choices: market_names
+	}, {
+		type: 'input',
+		name: 'api_key',
+		message: 'Enter your API key'
+	}, {
+		type: 'input',
+		name: 'api_secret',
+		message: 'Enter your API Secret'
+	}]).then(function(answers) {
+		app.markets.add(answers.market_name, answers.api_key, answers.api_secret);
+		callback();
+	});
 });
+vorpal.command('add_pair', 'Initialize new pair').action(function(args, callback) {
+	var markets = [];
+	_.forEach(app.markets.markets, function(value, key) {
+		markets.push({
+			name: value.name,
+			value: key
+		});
+	});
+	inquirer.prompt([{
+		type: 'list',
+		name: 'market_index',
+		message: 'Which market do you want to initialize?',
+		paginated: true,
+		choices: markets
+	}]).then(function(answers) {
+		var pairs = [];
+		_.forEach(app.markets.markets[answers.market_index].available_pairs, function(value, key) {
+			pairs.push({
+				name: value.currency1.toUpperCase() + '/' + value.currency2.toUpperCase(),
+				value: key
+			});
+		});
+
+		inquirer.prompt([{
+			type: 'list',
+			name: 'pair_index',
+			message: 'Which market do you want to initialize?',
+			paginated: true,
+			choices: pairs
+		}]).then(function(answers2) {
+			let pair = app.markets.markets[answers.market_index].available_pairs[answers2.pair_index];
+			app.markets.markets[answers.market_index].add_pair(new Pair(pair.currency1, pair.currency2, pair.currency1_decimal != undefined ? pair.currency1_decimal : 8, pair.currency8_decimal != undefined ? pair.currency8_decimal : 8));
+			callback();
+		});
+	});
+});
+vorpal.delimiter('$').show();
