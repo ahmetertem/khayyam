@@ -1,10 +1,31 @@
 #!/usr/bin/env node
 
+const Pair = require('./lib/pair.js');
+const _ = require('lodash');
+// ora and cliSpinners are brothers!
+const ora = require('ora');
+const cliSpinners = require('cli-spinners');
+const vorpal = require('vorpal')();
+const tablify = require('tablify').tablify;
+const chalk = require('chalk');
+const inquirer = require('inquirer');
 const app = require('./lib/app.js');
 app.prerequisite();
 app.markets.on('add_available_market', function(a) {
-	console.log('Market `' + a + '` added to available markets');
-})
+	console.log(chalk.blue('Market `' + a + '` added to available markets'));
+});
+app.markets.on('market_removed', function() {
+	console.log(chalk.green('Market removed'));
+});
+app.markets.on('saved', function() {
+	console.log(chalk.blue('Markets saved'));
+});
+app.markets.on('error', function(message) {
+	console.log(chalk.red(message));
+});
+app.markets.on('market_pair_added', function(market, pair) {
+	console.log(chalk.green('Pair `' + pair.currency2.toUpperCase() + '/' + pair.currency1.toUpperCase() + '` added to ' + market.name));
+});
 app.init();
 //
 // C
@@ -15,17 +36,6 @@ app.init();
 // L
 // E
 //
-const Pair = require('./lib/pair.js');
-const _ = require('lodash');
-// ora and cliSpinners are brothers!
-const ora = require('ora');
-const cliSpinners = require('cli-spinners');
-const vorpal = require('vorpal')();
-const tablify = require('tablify').tablify;
-const chalk = require('chalk');
-const inquirer = require('inquirer');
-
-
 vorpal.find('exit').remove();
 vorpal.command('exit', 'Exits application.').alias('quit').action(function(args, callback) {
 	process.exit(0);
@@ -54,7 +64,38 @@ vorpal.command('add_market', 'Initialize new market instance').action(function(a
 		callback();
 	});
 });
+vorpal.command('remove_market', 'Removes a market').action(function(args, callback) {
+	if (app.markets.markets.length == 0) {
+		console.log(chalk.red('You do not have added any market yet;'));
+		console.log(chalk.blue('You may add new market via `add_market` command.'));
+		callback();
+		return false;
+	}
+	var markets = [];
+	_.forEach(app.markets.markets, function(value, key) {
+		markets.push({
+			name: value.name,
+			value: key
+		});
+	});
+	inquirer.prompt([{
+		type: 'list',
+		name: 'market_index',
+		message: 'Which market do you want to remove?',
+		paginated: true,
+		choices: markets
+	}]).then(function(answers) {
+		app.markets.remove_at_index(answers.market_index);
+		callback();
+	});
+});
 vorpal.command('add_pair', 'Initialize new pair').action(function(args, callback) {
+	if (app.markets.markets.length == 0) {
+		console.log(chalk.red('You do not have added any market yet;'));
+		console.log(chalk.blue('You may add new market via `add_market` command.'));
+		callback();
+		return false;
+	}
 	var markets = [];
 	_.forEach(app.markets.markets, function(value, key) {
 		markets.push({
@@ -72,11 +113,10 @@ vorpal.command('add_pair', 'Initialize new pair').action(function(args, callback
 		var pairs = [];
 		_.forEach(app.markets.markets[answers.market_index].available_pairs, function(value, key) {
 			pairs.push({
-				name: value.currency1.toUpperCase() + '/' + value.currency2.toUpperCase(),
+				name: value.currency2.toUpperCase() + '/' + value.currency1.toUpperCase(),
 				value: key
 			});
 		});
-
 		inquirer.prompt([{
 			type: 'list',
 			name: 'pair_index',
