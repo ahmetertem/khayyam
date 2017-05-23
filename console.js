@@ -27,6 +27,9 @@ app.markets.on('market_pair_added', function(market, pair) {
 	console.log(chalk.green('Pair `' + pair.currency2.toUpperCase() + '/' + pair.currency1.toUpperCase() + '` added to ' + market.name));
 });
 app.init();
+setInterval(function() {
+	console.log('test')
+}, 10000)
 //
 // C
 // O
@@ -65,7 +68,7 @@ vorpal.command('add_market', 'Initialize new market instance').action(function(a
 	});
 });
 vorpal.command('remove_market', 'Removes a market').action(function(args, callback) {
-	if (app.markets.markets.length == 0) {
+	if (app.markets.markets.length === 0) {
 		console.log(chalk.red('You do not have added any market yet;'));
 		console.log(chalk.blue('You may add new market via `add_market` command.'));
 		callback();
@@ -112,11 +115,18 @@ vorpal.command('add_pair', 'Initialize new pair').action(function(args, callback
 	}]).then(function(answers) {
 		var pairs = [];
 		_.forEach(app.markets.markets[answers.market_index].available_pairs, function(value, key) {
-			pairs.push({
-				name: value.currency2.toUpperCase() + '/' + value.currency1.toUpperCase(),
-				value: key
-			});
+			if (!app.markets.markets[answers.market_index].is_pair_exist(value.currency1, value.currency2)) {
+				pairs.push({
+					name: value.currency2.toUpperCase() + '/' + value.currency1.toUpperCase(),
+					value: key
+				});
+			}
 		});
+		if (pairs.length == 0) {
+			console.log(chalk.red('You add all pairs in the market.'));
+			callback();
+			return;
+		}
 		inquirer.prompt([{
 			type: 'list',
 			name: 'pair_index',
@@ -125,7 +135,7 @@ vorpal.command('add_pair', 'Initialize new pair').action(function(args, callback
 			choices: pairs
 		}]).then(function(answers2) {
 			let pair = app.markets.markets[answers.market_index].available_pairs[answers2.pair_index];
-			app.markets.markets[answers.market_index].add_pair(new Pair(pair.currency1, pair.currency2, pair.currency1_decimal != undefined ? pair.currency1_decimal : 8, pair.currency8_decimal != undefined ? pair.currency8_decimal : 8));
+			app.markets.markets[answers.market_index].add_pair(new Pair(pair.currency1, pair.currency2, pair.currency1_decimal !== undefined ? pair.currency1_decimal : 8, pair.currency8_decimal !== undefined ? pair.currency8_decimal : 8));
 			callback();
 		});
 	});
