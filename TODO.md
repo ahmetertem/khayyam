@@ -1,3 +1,6 @@
+- Market initialize
+	- Initialize fees
+	- Get balances
 - Market pair analyze
 - Pair algorithms
     - Manuel

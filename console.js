@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
+"use strict";
 const Pair = require('./lib/pair.js');
 const _ = require('lodash');
 // ora and cliSpinners are brothers!
-const ora = require('ora');
-const cliSpinners = require('cli-spinners');
+// const ora = require('ora');
+// const cliSpinners = require('cli-spinners');
 const vorpal = require('vorpal')();
-const tablify = require('tablify')
-	.tablify;
+// const tablify = require('tablify').tablify;
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const app = require('./lib/app.js');
@@ -41,7 +41,7 @@ vorpal.find('exit')
 	.remove();
 vorpal.command('exit', 'Exits application.')
 	.alias('quit')
-	.action(function(args, callback) {
+	.action(function() {
 		process.exit(0);
 	});
 vorpal.command('add_market', 'Initialize new market instance')
@@ -122,7 +122,7 @@ vorpal.command('add_pair', 'Initialize new pair')
 			.then(function(answers) {
 				var pairs = [];
 				_.forEach(app.markets.markets[answers.market_index].available_pairs, function(value, key) {
-					if (!app.markets.markets[answers.market_index].is_pair_exist(value.currency1, value.currency2)) {
+					if (!app.markets.markets[answers.market_index].isPairExist(value.currency1, value.currency2)) {
 						pairs.push({
 							name: value.currency2.toUpperCase() + '/' + value.currency1.toUpperCase(),
 							value: key
@@ -143,7 +143,7 @@ vorpal.command('add_pair', 'Initialize new pair')
 		}])
 					.then(function(answers2) {
 						let pair = app.markets.markets[answers.market_index].available_pairs[answers2.pair_index];
-						app.markets.markets[answers.market_index].add_pair(new Pair(pair.currency1, pair.currency2, pair.currency1_decimal !== undefined ? pair.currency1_decimal : 8, pair.currency8_decimal !== undefined ? pair.currency8_decimal : 8));
+						app.markets.markets[answers.market_index].addPair(new Pair(pair.currency1, pair.currency2, pair.currency1_decimal !== undefined ? pair.currency1_decimal : 8, pair.currency8_decimal !== undefined ? pair.currency8_decimal : 8));
 						callback();
 					});
 			});
