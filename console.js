@@ -27,6 +27,9 @@ app.markets.on('error', function(message) {
 app.markets.on('market_pair_added', function(market, pair) {
 	console.log(chalk.green('Pair `' + pair.currency2.toUpperCase() + '/' + pair.currency1.toUpperCase() + '` added to ' + market.name));
 });
+app.markets.on('market_pair_removed', function(market) {
+	console.log(chalk.green('Pair is removed from ' + market.name));
+});
 app.init();
 //
 // C
@@ -93,7 +96,7 @@ vorpal.command('remove_market', 'Removes a market')
 				choices: markets
 	}])
 			.then(function(answers) {
-				app.markets.remove_at_index(answers.market_index);
+				app.markets.removeAtIndex(answers.market_index);
 				callback();
 			});
 	});
@@ -137,7 +140,7 @@ vorpal.command('add_pair', 'Initialize new pair')
 				inquirer.prompt([{
 						type: 'list',
 						name: 'pair_index',
-						message: 'Which market do you want to initialize?',
+						message: 'Which pair do you want to add?',
 						paginated: true,
 						choices: pairs
 		}])
@@ -148,5 +151,54 @@ vorpal.command('add_pair', 'Initialize new pair')
 					});
 			});
 	});
-vorpal.delimiter('$')
+vorpal.command('remove_pair', 'Removes pair from a market')
+	.action(function(args, callback) {
+		if (app.markets.markets.length === 0) {
+			console.log(chalk.red('You do not have added any market yet;'));
+			console.log(chalk.blue('You may add new market via `add_market` command.'));
+			callback();
+			return false;
+		}
+		var markets = [];
+		_.forEach(app.markets.markets, function(value, key) {
+			markets.push({
+				name: value.name,
+				value: key
+			});
+		});
+		inquirer.prompt([{
+				type: 'list',
+				name: 'market_index',
+				message: 'Which market do you want to remove pair from?',
+				paginated: true,
+				choices: markets
+		}])
+			.then(function(answers) {
+				var pairs = [];
+				_.forEach(app.markets.markets[answers.market_index].pairs, function(value, key) {
+					pairs.push({
+						name: value.currency2.toUpperCase() + '/' + value.currency1.toUpperCase(),
+						value: key
+					});
+				});
+				if (pairs.length === 0) {
+					console.log(chalk.red('You do not have any pair to remove in this market'));
+					callback();
+					return;
+				}
+				inquirer.prompt([{
+						type: 'list',
+						name: 'pair_index',
+						message: 'Which pair do you want to remove?',
+						paginated: true,
+						choices: pairs
+		}])
+					.then(function(answers2) {
+						app.markets.markets[answers.market_index].removePairAtIndex(answers2.pair_index);
+						callback();
+					});
+			});
+	});
+vorpal.history('bitcoinbot')
+	.delimiter('$')
 	.show();
