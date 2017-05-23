@@ -129,7 +129,7 @@ vorpal.command('add_pair', 'Initialize new pair')
 						});
 					}
 				});
-				if (pairs.length == 0) {
+				if (pairs.length === 0) {
 					console.log(chalk.red('You add all pairs in the market.'));
 					callback();
 					return;
