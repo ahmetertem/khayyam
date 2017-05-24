@@ -1,9 +1,10 @@
-- Market initialize
-	- Initialize fees
-	- Get balances
+- Get Orders
+	- Order Balances
+
 - Market pair analyze
 - Pair algorithms
     - Manuel
     - Long term
     - Short term
 - Analyze from pair history (buys & sells)
+- Vorpal Mode maybe
