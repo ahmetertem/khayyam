@@ -40,13 +40,6 @@ app.init();
 // L
 // E
 //
-vorpal.find('exit')
-	.remove();
-vorpal.command('exit', 'Exits application.')
-	.alias('quit')
-	.action(function() {
-		process.exit(0);
-	});
 vorpal.command('add_market', 'Initialize new market instance')
 	.action(function(args, callback) {
 		var market_names = [];
@@ -70,33 +63,6 @@ vorpal.command('add_market', 'Initialize new market instance')
 	}])
 			.then(function(answers) {
 				app.markets.add(answers.market_name, answers.api_key, answers.api_secret);
-				callback();
-			});
-	});
-vorpal.command('remove_market', 'Removes a market')
-	.action(function(args, callback) {
-		if (app.markets.markets.length === 0) {
-			console.log(chalk.red('You do not have added any market yet;'));
-			console.log(chalk.blue('You may add new market via `add_market` command.'));
-			callback();
-			return false;
-		}
-		var markets = [];
-		_.forEach(app.markets.markets, function(value, key) {
-			markets.push({
-				name: value.name,
-				value: key
-			});
-		});
-		inquirer.prompt([{
-				type: 'list',
-				name: 'market_index',
-				message: 'Which market do you want to remove?',
-				paginated: true,
-				choices: markets
-	}])
-			.then(function(answers) {
-				app.markets.removeAtIndex(answers.market_index);
 				callback();
 			});
 	});
@@ -151,6 +117,33 @@ vorpal.command('add_pair', 'Initialize new pair')
 					});
 			});
 	});
+vorpal.command('remove_market', 'Removes a market')
+	.action(function(args, callback) {
+		if (app.markets.markets.length === 0) {
+			console.log(chalk.red('You do not have added any market yet;'));
+			console.log(chalk.blue('You may add new market via `add_market` command.'));
+			callback();
+			return false;
+		}
+		var markets = [];
+		_.forEach(app.markets.markets, function(value, key) {
+			markets.push({
+				name: value.name,
+				value: key
+			});
+		});
+		inquirer.prompt([{
+				type: 'list',
+				name: 'market_index',
+				message: 'Which market do you want to remove?',
+				paginated: true,
+				choices: markets
+	}])
+			.then(function(answers) {
+				app.markets.removeAtIndex(answers.market_index);
+				callback();
+			});
+	});
 vorpal.command('remove_pair', 'Removes pair from a market')
 	.action(function(args, callback) {
 		if (app.markets.markets.length === 0) {
@@ -198,6 +191,13 @@ vorpal.command('remove_pair', 'Removes pair from a market')
 						callback();
 					});
 			});
+	});
+vorpal.find('exit')
+	.remove();
+vorpal.command('exit', 'Exits application.')
+	.alias('quit')
+	.action(function() {
+		process.exit(0);
 	});
 vorpal.history('bitcoinbot')
 	.delimiter('$')
