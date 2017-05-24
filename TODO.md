@@ -1,6 +1,4 @@
-- Get Orders
-	- Order Balances
-
+- `markets` command to Vorpal (console)
 - Market pair analyze
 - Pair algorithms
     - Manuel
