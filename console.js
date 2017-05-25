@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 // ora and cliSpinners are brothers!
-// const ora = require('ora');
-// const cliSpinners = require('cli-spinners');
-const glob = require('glob');
-const vorpal = require('vorpal')();
-const chalk = require('chalk');
-const app = require('./lib/app.js');
+// var ora = require('ora');
+// var cliSpinners = require('cli-spinners');
+var glob = require('glob');
+var vorpal = require('vorpal')();
+var chalk = require('chalk');
+var app = require('./lib/app.js');
 app.prerequisite();
 app.markets.on('add_available_market', function(a) {
 	console.log(chalk.blue('Market `' + a + '` added to available markets'));

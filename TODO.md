@@ -1,4 +1,7 @@
-- `markets` command to Vorpal (console)
+- `markets` command (console)
+- `pairs` command (console)
+- get depths
+	- depth till calculates
 - Market pair analyze
 - Pair algorithms
     - Manuel
