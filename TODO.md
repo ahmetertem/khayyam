@@ -1,7 +1,9 @@
-- `markets` command (console)
-- `pairs` command (console)
-- get depths
-	- depth till calculates
+==Roadmap==
+- Pair setter to settings
+- Get public trades
+- Get ticker
+- Web request (push like)
+- Order different rate calc
 - Market pair analyze
 - Pair algorithms
     - Manuel
@@ -9,3 +11,11 @@
     - Short term
 - Analyze from pair history (buys & sells)
 - Vorpal Mode maybe
+- Alert system
+
+==Other Markets==
+- Bittrex
+
+==Console==
+- `markets`
+- `pairs`
