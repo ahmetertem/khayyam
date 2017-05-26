@@ -1,21 +1,29 @@
-==Roadmap==
+###Roadmap
 - Pair setter to settings
-- Get public trades
-- Get ticker
-- Web request (push like)
-- Order different rate calc
-- Market pair analyze
+- Make Order
+- Cancel order
+- Web request (*push like*)
 - Pair algorithms
     - Manuel
     - Long term
     - Short term
-- Analyze from pair history (buys & sells)
-- Vorpal Mode maybe
+
+####Console
+	- `markets`
+	- `pairs`
+	- `algorithms` / `algos`
+	- Maybe
+		- Order different rate calculation
+
+###Future
 - Alert system
+- Market pair analyze
 
-==Other Markets==
+###Maybe's
+- Analyze from pair history (*buys & sells*)
+- Vorpal Mode maybe
+- Split fees to maker & taker but is it necessary ?
+
+###Other Markets
 - Bittrex
-
-==Console==
-- `markets`
-- `pairs`
+- BTC-E

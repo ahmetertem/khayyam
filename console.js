@@ -27,7 +27,7 @@ app.markets.on('market_pair_removed', function(market) {
 	console.log(chalk.green('Pair is removed from ' + market.name));
 });
 app.markets.on('market_pair_tick', function(market, pair) {
-	console.log(pair.depth_asks);
+	// console.log(pair.depth_asks);
 });
 let files = glob.sync("./lib/console/*.js", {
 	cwd: __dirname
