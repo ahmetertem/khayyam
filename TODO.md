@@ -9,11 +9,11 @@
     - Short term
 
 ####Console
-	- `markets`
-	- `pairs`
-	- `algorithms` / `algos`
-	- Maybe
-		- Order different rate calculation
+- `markets`
+- `pairs`
+- `algorithms` / `algos`
+- Maybe
+	- Order different rate calculation
 
 ###Future
 - Alert system

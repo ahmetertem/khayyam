@@ -1,48 +1,48 @@
 #!/usr/bin/env node
 
 // ora and cliSpinners are brothers!
-// var ora = require('ora');
-// var cliSpinners = require('cli-spinners');
-var glob = require('glob');
-var vorpal = require('vorpal')();
-var chalk = require('chalk');
-var app = require('./lib/app.js');
-app.prerequisite();
-app.markets.on('add_available_market', function(a) {
-	console.log(chalk.blue('Market `' + a + '` added to available markets'));
-});
-app.markets.on('market_removed', function() {
-	console.log(chalk.green('Market removed'));
-});
-app.markets.on('saved', function() {
-	console.log(chalk.blue('Markets saved'));
-});
-app.markets.on('error', function(message) {
-	console.log(chalk.red(message));
-});
-app.markets.on('market_pair_added', function(market, pair) {
-	console.log(chalk.green('Pair `' + pair.currency2.toUpperCase() + '/' + pair.currency1.toUpperCase() + '` added to ' + market.name));
-});
-app.markets.on('market_pair_removed', function(market) {
-	console.log(chalk.green('Pair is removed from ' + market.name));
-});
-app.markets.on('market_pair_tick', function(market, pair) {
-	// console.log(pair.depth_asks);
-});
-let files = glob.sync("./lib/console/*.js", {
-	cwd: __dirname
-});
+// var ora = require('ora')
+// var cliSpinners = require('cli-spinners')
+var glob = require('glob')
+var vorpal = require('vorpal')()
+var chalk = require('chalk')
+var app = require('./lib/app.js')
+app.prerequisite()
+app.markets.on('add_available_market', function (a) {
+  console.log(chalk.blue('Market `' + a + '` added to available markets'))
+})
+app.markets.on('market_removed', function () {
+  console.log(chalk.green('Market removed'))
+})
+app.markets.on('saved', function () {
+  console.log(chalk.blue('Markets saved'))
+})
+app.markets.on('error', function (message) {
+  console.log(chalk.red(message))
+})
+app.markets.on('market_pair_added', function (market, pair) {
+  console.log(chalk.green('Pair `' + pair.currency2.toUpperCase() + '/' + pair.currency1.toUpperCase() + '` added to ' + market.name))
+})
+app.markets.on('market_pair_removed', function (market) {
+  console.log(chalk.green('Pair is removed from ' + market.name))
+})
+// app.markets.on('market_pair_tick', function (market, pair) {
+// console.log(pair.depth_asks)
+// })
+var files = glob.sync('./lib/console/*.js', {
+  cwd: __dirname
+})
 files.forEach(file => {
-	vorpal.use(require(file), app);
-});
-app.init();
+  vorpal.use(require(file), app)
+})
+app.init()
 vorpal.find('exit')
-	.remove();
+  .remove()
 vorpal.command('exit', 'Exits application.')
-	.alias('quit')
-	.action(function() {
-		process.exit(0);
-	});
+  .alias('quit')
+  .action(function () {
+    process.exit(0)
+  })
 vorpal.history('bitcoinbot')
-	.delimiter('$')
-	.show();
+  .delimiter('$')
+  .show()

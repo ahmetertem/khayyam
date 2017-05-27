@@ -1,35 +1,38 @@
 {
-  "name": "bitcoinbot",
-  "version": "0.0.1",
-  "description": "Bitcoin Bot",
-  "main": "console.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/ahmetertem/bitcoinbot",
-  "keywords": [
-    "bitcoin",
-    "bot",
-    "electron-app",
-    "electron"
-  ],
-  "author": "Ahmet Ertem",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "console": "^0.5.2"
-  },
-  "dependencies": {
-    "chalk": "^1.1.3",
-    "cli-spinners": "^1.0.0",
-    "deasync": "^0.1.9",
-    "events": "^1.1.1",
-    "glob": "^7.1.1",
-    "inquirer": "^3.0.6",
-    "locutus": "^2.0.8",
-    "lodash": "^4.17.4",
-    "ora": "^1.2.0",
-    "request": "^2.81.0",
-    "tablify": "^0.1.5",
-    "vorpal": "^1.12.0"
-  }
+	"name": "bitcoinbot",
+	"version": "0.0.1",
+	"description": "Bitcoin Bot",
+	"main": "console.js",
+	"scripts": {
+		"test": "standard && node console.js",
+		"start": "electron ."
+	},
+	"repository": "https://github.com/ahmetertem/bitcoinbot",
+	"keywords": [
+		"bitcoin",
+		"bot",
+		"electron-app",
+		"electron"
+	],
+	"author": "Ahmet Ertem",
+	"license": "CC0-1.0",
+	"devDependencies": {
+		"console": "^0.5.2",
+		"eslint": "^3.19.0",
+		"standard": "^10.0.2"
+	},
+	"dependencies": {
+		"chalk": "^1.1.3",
+		"cli-spinners": "^1.0.0",
+		"deasync": "^0.1.9",
+		"events": "^1.1.1",
+		"glob": "^7.1.1",
+		"inquirer": "^3.0.6",
+		"locutus": "^2.0.8",
+		"lodash": "^4.17.4",
+		"ora": "^1.2.0",
+		"request": "^2.81.0",
+		"tablify": "^0.1.5",
+		"vorpal": "^1.12.0"
+	}
 }
