@@ -8,6 +8,7 @@ var vorpal = require('vorpal')()
 var chalk = require('chalk')
 var app = require('./lib/app.js')
 app.prerequisite()
+app.initializePlugins()
 app.markets.on('add_available_market', function (a) {
   console.log(chalk.blue('Market `' + a + '` added to available markets'))
 })
