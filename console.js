@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// ora and cliSpinners are brothers!
-// var ora = require('ora')
-// var cliSpinners = require('cli-spinners')
 var glob = require('glob')
 var vorpal = require('vorpal')()
 var chalk = require('chalk')
