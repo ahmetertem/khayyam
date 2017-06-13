@@ -1,6 +1,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/ahmetertem/bitcoinbot.svg)](https://github.com/ahmetertem/khayyam/issues) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/bitcoinbot-node/Lobby) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ahmetertem/khayyam/blob/master/LICENSE.md) [![bitHound Dependencies](https://www.bithound.io/github/ahmetertem/khayyam/badges/dependencies.svg)](https://www.bithound.io/github/ahmetertem/khayyam/master/dependencies/npm)
 
-# Bitcoin Bot
+# Khayyam
 
 A bot (*more or less*) for Bitcoin and other alt coins & currencies (*fiat moneys*). Written in Javascript and works on console for now.
 
@@ -30,8 +30,8 @@ Please see the [features](#features) and [roadmap](https://github.com/ahmetertem
 Clone the repository or [download zip](https://github.com/ahmetertem/khayyam/archive/master.zip) file and extract it
 
 ```
-git clone git@github.com:ahmetertem/bitcoinbot.git
-cd bitcoinbot
+git clone git@github.com:ahmetertem/khayyam.git
+cd khayyam
 ```
 
 If you're running first time or upgraded;
@@ -50,7 +50,7 @@ For now there is only console available and you may use `help` command after run
 
 ## GUI
 
-There will be GUI for bitcoinbot but it'll be on 2.0.0 version. See [#6](https://github.com/ahmetertem/khayyam/issues/6) and [2.0.0](https://github.com/ahmetertem/khayyam/issues?q=is%3Aopen+is%3Aissue+milestone%3A2.0.0)
+There will be GUI for Khayyam but it'll be on 2.0.0 version. See [#6](https://github.com/ahmetertem/khayyam/issues/6),  [2.0.0](https://github.com/ahmetertem/khayyam/issues?q=is%3Aopen+is%3Aissue+milestone%3A2.0.0), [gui tag](https://github.com/ahmetertem/khayyam/issues?q=is%3Aopen+is%3Aissue+label%3Agui).
 
 ## Why the funky name?
 
