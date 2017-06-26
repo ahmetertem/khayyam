@@ -54,4 +54,4 @@ There will be GUI for Khayyam but it'll be on 2.0.0 version. See [#6](https://gi
 
 ## Why the funky name?
 
-Since all the good ones are taken and bitcoin is about mathematic and I wanted to give a name of great mathematician... [Omay Khayyam](https://en.wikipedia.org/wiki/Omar_Khayyam)
+Since all the good ones are taken and bitcoin is about mathematic and I wanted to give a name of great mathematician... [Omar Khayyam](https://en.wikipedia.org/wiki/Omar_Khayyam)
