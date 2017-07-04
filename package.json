@@ -26,6 +26,7 @@
     "inquirer": "^3.0.6",
     "locutus": "^2.0.8",
     "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.13",
     "request": "^2.81.0",
     "tablify": "^0.1.5",
     "vorpal": "^1.12.0"
