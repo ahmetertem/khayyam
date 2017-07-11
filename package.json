@@ -20,6 +20,7 @@
     "standard": "^10.0.2"
   },
   "dependencies": {
+    "anydb-sql": "^0.6.53",
     "chalk": "^2.0.1",
     "deasync": "^0.1.9",
     "glob": "^7.1.1",
