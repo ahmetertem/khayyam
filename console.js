@@ -40,3 +40,19 @@ vorpal.command('exit', 'Exits application.')
 vorpal.history('bitcoinbot')
   .delimiter('$')
   .show()
+
+/*eslint no-unused-vars: ["error", { "vars": "local" }]*/
+/*global clean:true */
+clean = function () {
+  var blank = ''
+  for (var i = 0; i < process.stdout.rows; ++i) {
+    blank += '\n'
+  }
+  vorpal.ui.redraw(blank)
+  vorpal.ui.redraw('')
+}
+/*eslint no-unused-vars: ["error", { "vars": "local" }]*/
+/*global declean:true */
+declean = function () {
+  vorpal.ui.redraw.clear()
+}

@@ -1,4 +1,6 @@
 {
+  "indent_with_tabs": false,
+  "default_beautifier": "ESLint Fixer",
   "indent_size": 2,
   "indent_char": " ",
   "indent_with_tabs": false,
