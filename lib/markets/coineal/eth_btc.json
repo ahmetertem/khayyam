@@ -1,4 +1,6 @@
 {
 	"currency1": "ETH",
-	"currency2": "BTC"
+	"currency2": "BTC",
+	"currency1Decimal": 5,
+	"currency2Decimal": 4
 }

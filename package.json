@@ -26,18 +26,18 @@
     "deasync": "^0.1.15",
     "glob": "^7.1.4",
     "immutadot": "^1.0.0",
-    "inquirer": "^6.3.1",
+    "inquirer": "^6.4.1",
     "keypress": "^0.2.1",
-    "locutus": "^2.0.10",
+    "locutus": "^2.0.11",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
-    "moment-timezone": "^0.5.25",
+    "moment-timezone": "^0.5.26",
     "node-notifier": "^5.4.0",
     "request": "^2.88.0",
     "respawn": "^2.6.0",
-    "set-value": "^3.0.0",
+    "set-value": "^3.0.1",
     "string-width": "^4.1.0",
-    "table": "^5.3.3",
+    "table": "^5.4.1",
     "vorpal": "^1.12.0"
   }
 }
